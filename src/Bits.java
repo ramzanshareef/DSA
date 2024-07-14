@@ -1,9 +1,10 @@
 public class Bits {
     public static void main(String[] args) {
         // 0 ^ 0 --> 0
-        // 1 ^ 1 --> 0
         // 0 ^ 1 --> 1
+        // 1 ^ 1 --> 0
         // 1 ^ 0 --> 1
+        // 0 ^ n --> n
         // same numbers XOR --> 0
 
         // To Access first bit of integer n --> n&1

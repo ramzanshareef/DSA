@@ -6,8 +6,8 @@ public class Linear {
     public static void main(String[] args) {
         int[] arr = new int[] { 1, 2, 3, 4, 5, 6 };
         // in our Constant space complexity the notation was O(1)
-        arr[0] = arr[0] + 10; // System Complexity -> O(1)
-        System.out.println("arr[0] : " + arr[0]); // Time Complexity -> O(1) System Complexity -> O(1)
+        arr[0] = arr[0] + 10; // Space Complexity -> O(1)
+        System.out.println("arr[0] : " + arr[0]); // Time Complexity -> O(1) Space Complexity -> O(1)
         
         // Print elements of the array
         for (int j : arr) {

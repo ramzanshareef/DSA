@@ -2,13 +2,8 @@ package Arrays;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
-/**
- * Basics
- */
 public class Basics {
     public static void main(String[] args) {
         // System.out.println(object) --> this will call the .toString() from the object
@@ -84,6 +79,20 @@ public class Basics {
         return new int[] { -1, -1 };
     }
 
+    public int findMaxConsecutiveOnes(int[] nums) {
+        int result = 0;
+        int xor = 0;
+        for (int i = 0; i < nums.length; i++) {
+            xor ^= nums[i];
+            if (xor == 0) {
+                result++;
+            } else {
+                result = 0;
+            }
+        }
+        return result;
+    }
+
     public static void sortColors(int[] nums) {
         int low = 0, mid = 0, high = nums.length - 1;
         while (mid <= high) {
@@ -123,15 +132,104 @@ public class Basics {
         nums1 = result;
     }
 
+    public static ArrayList<Integer> mergeTwoArrays(int[] nums1, int m, int[] nums2, int n) {
+        int i = 0, j = 0;
+        ArrayList<Integer> result = new ArrayList<>();
+        while (i < m && j < n) {
+            if (nums1[i] <= nums2[j]) {
+                result.add(nums1[i++]);
+            } else {
+                result.add(nums2[j++]);
+            }
+        }
+        while (i < m) {
+            result.add(nums1[i++]);
+        }
+        while (j < n) {
+            result.add(nums2[j++]);
+        }
+        return result;
+    }
+
     public static void reverseElementsInArray(int[] arr, int i1, int i2) {
         arr[i1] = arr[i1] + arr[i2];
         arr[i2] = arr[i1] - arr[i2];
         arr[i1] = arr[i1] - arr[i2];
     }
 
-    public static void reverseArray(int[] arr) {
-        for (int i = 0; i < arr.length / 2; i++) {
-            reverseElementsInArray(arr, i, arr.length - 1 - i);
+    public static void reverseArray(int[] arr, int i, int j) {
+        while (i < j) {
+            reverseElementsInArray(arr, i++, j--);
         }
+    }
+
+    public static void rotateByKSteps(int[] arr, int k) {
+        reverseArray(arr, 0, arr.length - 1 - k);
+        reverseArray(arr, arr.length - k, arr.length - 1);
+        reverseArray(arr, 0, arr.length - 1);
+    }
+
+    public static boolean checkIfArraySortedAndRotated(int[] arr) {
+        int gCount = 0;
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i - 1] > arr[i]) {
+                gCount++;
+            }
+        }
+        if (arr[arr.length - 1] > arr[0]) {
+            gCount++;
+        }
+        return gCount <= 1;
+    }
+
+    public static int removeDuplicates(int[] nums) {
+        int index = 0;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] != nums[index]) {
+                index++;
+            }
+        }
+        return index + 1;
+    }
+
+    public static int searchInSorted(int arr[], int N, int K) {
+        for (int i = 0; i < N; i++) {
+            if (K == arr[i]) {
+                return 1;
+            }
+        }
+        return -1;
+    }
+
+    public static int majorityElement(int[] nums) {
+        Map<Integer, Integer> freqMap = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (freqMap.containsKey(nums[i])) {
+                freqMap.put(nums[i], freqMap.get(nums[i]) + 1);
+            } else {
+                freqMap.put(nums[i], 1);
+            }
+        }
+        int result = Integer.MIN_VALUE;
+        for (int i = 0; i < freqMap.size(); i++) {
+            result = Math.max(result, freqMap.get(nums[i]));
+        }
+        return result;
+    }
+
+    public static int[] nonDecreasingSquaresFromArray(int[] arr) {
+        int[] result = new int[arr.length];
+        int i = 0, j = arr.length - 1, index = arr.length - 1;
+        while (i <= j) {
+            if (Math.abs(arr[j]) > Math.abs(arr[i])) {
+                result[index] = arr[j] * arr[j];
+                j--;
+            } else {
+                result[index] = arr[i] * arr[i];
+                i++;
+            }
+            index--;
+        }
+        return result;
     }
 }

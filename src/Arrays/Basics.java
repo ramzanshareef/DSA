@@ -33,11 +33,22 @@ public class Basics {
     public static int firstRepeatedElement(int arr[]) {
         for (int i = 0; i < arr.length; i++) {
             for (int j = i + 1; j < arr.length; j++) {
-                if ((arr[i]^arr[j]) == 0) {
+                if ((arr[i] ^ arr[j]) == 0) {
                     return arr[i];
                 }
             }
         }
         return -1;
+    }
+
+    public static String pairWithAbsDiffExists(int arr[], int target) {
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i + 1; j < arr.length; j++) {
+                if (Math.abs(arr[i] - arr[j]) == target) {
+                    return "Yes";
+                }
+            }
+        }
+        return "No";
     }
 }

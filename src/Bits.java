@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Bits {
     public static void main(String[] args) {
         // 0 ^ 0 --> 0

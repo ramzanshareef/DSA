@@ -1,7 +1,10 @@
 package Arrays;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Basics
@@ -101,7 +104,34 @@ public class Basics {
         }
     }
 
-    
+    public static void merge(int[] nums1, int m, int[] nums2, int n) {
+        int i = 0, j = 0, result[] = new int[nums1.length];
+        int index = 0;
+        while (i < m && j < n) {
+            if (nums1[i] <= nums2[j]) {
+                result[index++] = nums1[i++];
+            } else {
+                result[index++] = nums2[j++];
+            }
+        }
+        while (i < m) {
+            result[index++] = nums1[i++];
+        }
+        while (j < n) {
+            result[index++] = nums2[j++];
+        }
+        nums1 = result;
+    }
 
+    public static void reverseElementsInArray(int[] arr, int i1, int i2) {
+        arr[i1] = arr[i1] + arr[i2];
+        arr[i2] = arr[i1] - arr[i2];
+        arr[i1] = arr[i1] - arr[i2];
+    }
 
+    public static void reverseArray(int[] arr) {
+        for (int i = 0; i < arr.length / 2; i++) {
+            reverseElementsInArray(arr, i, arr.length - 1 - i);
+        }
+    }
 }

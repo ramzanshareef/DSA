@@ -51,4 +51,20 @@ public class Basics {
         }
         return "No";
     }
+
+    // Given an array arr[] of size N-1 with integers in the range of [1, N], the
+    // task is to find the missing number from the first N integers. There are no
+    // duplicates in the list.
+    public static int missingNumber(int arr[], int n) {
+        int xor = 0;
+        for (int i = 1; i <= n; i++) {
+            xor ^= i;
+        }
+        for (int i = 0; i < arr.length; i++) {
+            xor ^= arr[i];
+        }
+        return xor;
+    }
+
+
 }

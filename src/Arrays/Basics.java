@@ -2,9 +2,13 @@ package Arrays;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Basics {
+    static Scanner input = new Scanner(System.in);
+
     public static void main(String[] args) {
         // System.out.println(object) --> this will call the .toString() from the object
         // and for built-in arrays it gives the memory address of the first element
@@ -232,4 +236,73 @@ public class Basics {
         }
         return result;
     }
+
+    public int numOfSubarrays(int[] arr) {
+        int odd = 0, even = 0, sum = 0;
+        long ans = 0;
+        for (int num : arr) {
+            sum += num;
+            if (sum % 2 == 0) {
+                ans += odd;
+                even++;
+            } else {
+                ans += 1 + even;
+                odd++;
+            }
+        }
+        return (int) (ans % (Math.pow(10, 9) + 7));
+    }
+
+    public static void print2DArray(int arr[][]) {
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                System.out.print(arr[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static int[][] input2DArray() {
+        System.out.print("Rows = ");
+        int r = input.nextInt();
+        System.out.print("Columns = ");
+        int c = input.nextInt();
+        int arr[][] = new int[r][c];
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                arr[i][j] = input.nextInt();
+            }
+        }
+        return arr;
+    }
+
+    public static void transposeArrayInPlace(int[][] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                if (i < j) {
+                    arr[i][j] = arr[i][j] + arr[j][i];
+                    arr[j][i] = arr[i][j] - arr[j][i];
+                    arr[i][j] = arr[i][j] - arr[j][i];
+                }
+            }
+        }
+    }
+
+    public static int[][] transpose2DArray(int arr[][]) {
+        int result[][] = new int[arr[0].length][arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                result[j][i] = arr[i][j];
+            }
+        }
+        return result;
+    }
+
+    public void rotate2DArrayBy90Degrees(int[][] matrix) {
+        transposeArrayInPlace(matrix);
+        for (int i = 0; i < matrix.length; i++) {
+            reverseArray(matrix[i], 0, matrix[i].length - 1);
+        }
+    }
+
 }

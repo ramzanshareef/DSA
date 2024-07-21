@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Bits {
     public static void main(String[] args) {
         // 0 ^ 0 --> 0
@@ -39,5 +42,17 @@ class Convertor {
             binary /= 10;
         }
         return res;
+    }
+
+    int bitwiseComplement(int n) {
+        if (n == 0)
+            return 1;
+        int num = n;
+        int mask = 0;
+        while (num != 0) { // generating a mask
+            mask = mask << 1 | 1; // left shifting the bits created in the mask
+            num >>= 1; // right shifting the bits in the number
+        }
+        return (~n) & mask;
     }
 }

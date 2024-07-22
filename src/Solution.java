@@ -1,16 +1,26 @@
-import java.util.HashMap;
+import Arrays.Basics;
 
 class Solution {
-    // public static String[] sortPeople(String[] names, int[] heights) {
-
-    // }
+    public static int[] productExceptSelf(int[] nums) {
+        int[] prefMul = new int[nums.length];
+        int[] suffMul = new int[nums.length];
+        int[] result = new int[nums.length];
+        prefMul[0] = 1;
+        suffMul[nums.length - 1] = 1;
+        for (int i = 1; i < nums.length; i++) {
+            prefMul[i] = nums[i - 1] * prefMul[i - 1];
+        }
+        for (int i = nums.length - 2; i >= 0; i--) {
+            suffMul[i] = nums[i + 1] * suffMul[i + 1];
+        }
+        for (int i = 0; i < result.length; i++) {
+            result[i] = prefMul[i] * suffMul[i];
+        }
+        return result;
+    }
 
     public static void main(String[] args) {
-        String[] names = { "Mary", "John", "Emma" };
-        int[] heights = { 180, 165, 170 };
-        HashMap<String, Integer> people = new HashMap<>();
-        for (int i = 0; i < heights.length; i++) {
-            people.put(names[i], heights[i]);
-        }
+        int nums[] = { -1, 1, 0, -3, 3 };
+        productExceptSelf(nums);
     }
 }

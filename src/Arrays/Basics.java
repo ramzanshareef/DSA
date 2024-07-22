@@ -357,4 +357,62 @@ public class Basics {
         return spiralMatrix;
     }
 
+    public static int areaWithCoOrdinatesIn2DArray(int[][] matrix, int l1, int r1, int l2, int r2) {
+        int result = 0;
+        for (int i = 0; i < matrix.length; i++) { // Prefix sum over a row
+            for (int j = 1; j < matrix[0].length; j++) {
+                matrix[i][j] += matrix[i][j - 1];
+            }
+        }
+        for (int i = l1; i <= l2; i++) {
+            if (r1 >= 1) {
+                result += matrix[i][r2] - matrix[i][r1 - 1];
+            } else {
+                result += matrix[i][r2];
+            }
+        }
+        return result;
+    }
+
+    public static int areaWithCoOrdinatesIn2DArrayWithColRowPrefix(int[][] matrix, int l1, int r1, int l2, int r2) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 1; j < matrix[0].length; j++) {
+                matrix[i][j] += matrix[i][j - 1];
+            }
+        }
+        for (int j = 0; j < matrix[0].length; j++) {
+            for (int i = 1; i < matrix.length; i++) {
+                matrix[i][j] += matrix[i - 1][j];
+            }
+        }
+        print2DArray(matrix);
+        int left = 0, up = 0, leftup = 0;
+        if (l1 >= 1)
+            up = matrix[l1 - 1][r2];
+        if (r1 >= 1)
+            left = matrix[l2][r1 - 1];
+        if (l1 >= 1 && r1 >= 1)
+            leftup = matrix[l1 - 1][r1 - 1];
+        int ans = matrix[l2][r2] - left - up + leftup;
+        return ans;
+    }
+
+    public static int[] productExceptSelf(int[] nums) {
+        int[] prefMul = new int[nums.length];
+        int[] suffMul = new int[nums.length];
+        int[] result = new int[nums.length];
+        prefMul[0] = 1;
+        suffMul[nums.length - 1] = 1;
+        for (int i = 1; i < nums.length; i++) {
+            prefMul[i] = nums[i - 1] * prefMul[i - 1];
+        }
+        for (int i = nums.length - 2; i >= 0; i--) {
+            suffMul[i] = nums[i + 1] * suffMul[i + 1];
+        }
+        for (int i = 0; i < result.length; i++) {
+            result[i] = prefMul[i] * suffMul[i];
+        }
+        return result;
+    }
+
 }

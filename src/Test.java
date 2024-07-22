@@ -1,6 +1,5 @@
 import java.util.ArrayList;
-
-import ArrayLists.Basics;
+import java.util.Collections;
 
 public class Test {
     public static void main(String[] args) {
@@ -12,6 +11,15 @@ public class Test {
         list.add(22);
         list.add(10);
         System.out.println(list);
-        Basics.reverseArrayList(list);
+        Collections.sort(list, Collections.reverseOrder());
+        System.out.println(list);
+        ArrayList<String> strings = new ArrayList<>();
+        strings.add("Welcome");
+        strings.add("to");
+        strings.add("DSA");
+        strings.add("Ramzan");
+        System.out.println(strings);
+        Collections.sort(strings, Collections.reverseOrder());
+        System.out.println(strings);
     }
 }

@@ -1,5 +1,3 @@
-import Arrays.Basics;
-
 class Solution {
     public static int[] productExceptSelf(int[] nums) {
         int[] prefMul = new int[nums.length];

@@ -23,4 +23,13 @@ public class Recursion {
         }
         return arr[i] + sumOfElementsInArray(arr, i + 1);
     }
+
+    public static void linearSearchInArray(int[] arr, int target, int i) {
+        if (i >= arr.length)
+            return;
+        if (arr[i] == target) {
+            System.out.print(i + " ");
+        }
+        linearSearchInArray(arr, target, i + 1);
+    }
 }

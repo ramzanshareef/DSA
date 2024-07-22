@@ -2,7 +2,6 @@ package Arrays;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -302,6 +301,34 @@ public class Basics {
         transposeArrayInPlace(matrix);
         for (int i = 0; i < matrix.length; i++) {
             reverseArray(matrix[i], 0, matrix[i].length - 1);
+        }
+    }
+
+    public static void printSpiralMatrix(int[][] matrix, int r, int c) {
+        int tr = 0, br = r - 1, lc = 0, rc = c - 1;
+        int totalElements = 0;
+        System.out.println("Spiral Order Below");
+        while (totalElements < r * c) {
+            for (int j = lc; j <= rc && totalElements < r * c; j++) {
+                System.out.print(matrix[tr][j] + " ");
+                totalElements++;
+            }
+            tr++;
+            for (int i = tr; i <= br && totalElements < r * c; i++) {
+                System.out.print(matrix[i][rc] + " ");
+                totalElements++;
+            }
+            rc--;
+            for (int j = rc; j >= lc && totalElements < r * c; j--) {
+                System.out.print(matrix[br][j] + " ");
+                totalElements++;
+            }
+            br--;
+            for (int i = br; i >= tr && totalElements < r * c; i--) {
+                System.out.print(matrix[i][lc] + " ");
+                totalElements++;
+            }
+            lc++;
         }
     }
 

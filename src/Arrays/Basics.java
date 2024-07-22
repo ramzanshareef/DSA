@@ -332,4 +332,29 @@ public class Basics {
         }
     }
 
+    public static int[][] fillInSpiralOrder(int n) {
+        int[][] spiralMatrix = new int[n][n];
+        int tr = 0, br = n - 1, lc = 0, rc = n - 1;
+        int value = 1;
+        while (value <= n * n) {
+            for (int j = lc; j <= rc && value <= n * n; j++) {
+                spiralMatrix[tr][j] = value++;
+            }
+            tr++;
+            for (int i = tr; i <= br && value <= n * n; i++) {
+                spiralMatrix[i][rc] = value++;
+            }
+            rc--;
+            for (int j = rc; j >= lc && value <= n * n; j--) {
+                spiralMatrix[br][j] = value++;
+            }
+            br--;
+            for (int i = br; i >= tr && value <= n * n; i--) {
+                spiralMatrix[i][lc] = value++;
+            }
+            lc++;
+        }
+        return spiralMatrix;
+    }
+
 }

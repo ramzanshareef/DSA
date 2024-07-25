@@ -8,7 +8,7 @@ public class Bits {
         // same numbers XOR --> 0
 
         // To Access first bit of integer n --> n&1
-        // n ^ n --> 0 --> n XOR n =0
+        // n ^ n --> 0 --> n XOR n = 0
         // To add 1 to last of zeroes n(000000) do `n<<1 | 1`
 
         int dec = 20;

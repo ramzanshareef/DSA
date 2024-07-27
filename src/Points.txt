@@ -1,0 +1,6 @@
+• to get the ASCII value of a character, use int(charValue). 
+Example: int res = (int) 'a'; // res = 97
+
+• to get number of 1 bits in a number, use Integer.bitCount(numberValue)
+Example: int res = Integer.bitCount(5); // res = 2
+

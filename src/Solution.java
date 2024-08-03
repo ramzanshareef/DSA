@@ -1,5 +1,5 @@
 class Solution {
-    public boolean isPalindrome(String s) {
-        s.replaceAll(s, s)
+    public void isPalindrome(String s) {
+        s.replaceAll(s, s);
     }
 }

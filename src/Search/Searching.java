@@ -62,4 +62,36 @@ public class Searching {
         }
         return ans;
     }
+
+    public static int findInRotatedSortedArray(int arr[], int x) {
+        int n = arr.length, low = 0, high = n - 1, pivot = n;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (arr[mid] <= arr[n - 1]) {
+                pivot = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        if (arr[n - 1] < x) {
+            low = 0;
+            high = pivot - 1;
+        } else {
+            low = pivot;
+            high = n - 1;
+        }
+        n = arr.length;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (arr[mid] == x) {
+                return mid;
+            } else if (arr[mid] > x) {
+                high = mid - 1;
+            } else
+                low = mid + 1;
+        }
+        return -1;
+    }
+
 }

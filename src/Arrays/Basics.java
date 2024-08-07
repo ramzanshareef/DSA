@@ -135,21 +135,30 @@ public class Basics {
         nums1 = result;
     }
 
-    public static ArrayList<Integer> mergeTwoArrays(int[] nums1, int m, int[] nums2, int n) {
+    // Function to return a list containing the union of the two arrays.
+    public static ArrayList<Integer> findUnion(int nums1[], int nums2[], int n, int m) {
         int i = 0, j = 0;
         ArrayList<Integer> result = new ArrayList<>();
-        while (i < m && j < n) {
+        while (i < n && j < m) {
             if (nums1[i] <= nums2[j]) {
-                result.add(nums1[i++]);
+                if (result.size() == 0 || result.get(result.size() - 1) != nums1[i])
+                    result.add(nums1[i]);
+                i++;
             } else {
-                result.add(nums2[j++]);
+                if (result.size() == 0 || result.get(result.size() - 1) != nums2[j])
+                    result.add(nums2[j]);
+                j++;
             }
         }
-        while (i < m) {
-            result.add(nums1[i++]);
+        while (i < n) {
+            if (result.get(result.size() - 1) != nums1[i])
+                result.add(nums1[i]);
+            i++;
         }
-        while (j < n) {
-            result.add(nums2[j++]);
+        while (j < m) {
+            if (result.get(result.size() - 1) != nums2[j])
+                result.add(nums2[j]);
+            j++;
         }
         return result;
     }

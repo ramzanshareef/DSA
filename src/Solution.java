@@ -1,5 +1,10 @@
 class Solution {
-    public void isPalindrome(String s) {
-        s.replaceAll(s, s);
+    public int countSeniors(String[] details) {
+        int res = 0;
+        for (int i = 0; i < details.length; i++) {
+            int age = Integer.parseInt(details[i].substring(11, 13));
+            if (age>60) res++;
+        }
+        return res;
     }
 }

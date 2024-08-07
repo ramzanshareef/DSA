@@ -415,4 +415,17 @@ public class Basics {
         return result;
     }
 
+    public static int secondLargest(int nums[]) {
+        int largest = nums[0];
+        int res = -1;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == largest)
+                continue;
+            else if (nums[i] > largest) {
+                res = largest;
+                largest = nums[i];
+            }
+        }
+        return res;
+    }
 }

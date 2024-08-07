@@ -2,7 +2,9 @@ import Search.Searching;
 
 public class Test {
     public static void main(String[] args) {
-        int arr[] = { 3, 4, 5, 6, 7, 1, 2 };
-        System.out.println(Searching.minInRotatedSortedArray(arr));
+        int arr[] = { 3, 4, 5, 7, 7, 1, 2 };
+        // System.out.println(Searching.minInRotatedSortedArray(arr));
+
+        System.out.println(Arrays.Basics.secondLargest(arr));
     }
 }

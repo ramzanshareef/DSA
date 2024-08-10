@@ -1,7 +1,5 @@
 package Arrays;
 
-import java.util.List;
-
 public class Subsets {
     public static void printAllSubSequencesSum(int[] arr, int currIndex, int currSum) {
         if (currIndex == arr.length) {

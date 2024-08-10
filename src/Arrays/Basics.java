@@ -437,4 +437,20 @@ public class Basics {
         }
         return res;
     }
+
+    public static int secondSmallest(int nums[]) {
+        int smallest = nums[0];
+        int res = Integer.MAX_VALUE;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == smallest) {
+                continue;
+            } else if (nums[i] < smallest) {
+                res = smallest;
+                smallest = nums[i];
+            } else if (nums[i] < res) {
+                res = nums[i];
+            }
+        }
+        return res;
+    }
 }

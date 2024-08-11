@@ -42,4 +42,44 @@ public class Medium {
         }
         return res;
     }
+
+    public static int majorityElement(int arr[]) {
+        // return an element which appears more than n/2 times, where n = length of the
+        // array
+
+        // Approach 1 -> Hashing the count of the numbers and then checking
+        // int res = -1;
+        // Map<Integer, Integer> cacheMap = new HashMap<>();
+        // for (int i = 0; i < arr.length; i++) {
+        // cacheMap.put(arr[i], cacheMap.getOrDefault(arr[i], 0) + 1);
+        // }
+        // for (Map.Entry<Integer, Integer> entry : cacheMap.entrySet()) {
+        // if (entry.getValue() > arr.length / 2) {
+        // res = entry.getKey();
+        // break;
+        // }
+        // }
+        // return res;
+
+        int candidate = -1;
+        int votes = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (votes == 0) {
+                candidate = arr[i];
+            } else if (arr[i] == candidate)
+                votes++;
+            else
+                votes--;
+        }
+        int actualVotes = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == candidate)
+                actualVotes++;
+        }
+        if (actualVotes > arr.length / 2) {
+            return candidate;
+        }
+        return -1;
+    }
+
 }

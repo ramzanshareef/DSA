@@ -1,13 +1,10 @@
-import java.util.Arrays;
-import Arrays.Basics;
+import Arrays.*;
 
 public class Test {
     public static void main(String[] args) {
-        int arr[] = { 3, 4, 5, 7, 7, 1 };
-        // System.out.println(Searching.minInRotatedSortedArray(arr));
-        System.out.println(Basics.secondSmallest(arr));
-        System.out.println(Basics.secondLargest(arr));
-        Arrays.sort(arr);
-        Basics.print1DArray(arr);
+        int[] a = { 1, 2, 3, 1, 1, 1, 1, 4, 2, 3 };
+        long k = 6;
+        int len = Medium.maxLengthSubArrayWithSumK(a, k);
+        System.out.println("The length of the longest subarray is: " + len);
     }
 }

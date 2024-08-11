@@ -1,5 +1,6 @@
 package Arrays;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -81,5 +82,33 @@ public class Medium {
         }
         return -1;
     }
+
+    public static ArrayList<Integer> findMaxSumSubArray(int arr[]) {
+        long maxi = Long.MIN_VALUE;
+        long sum = 0;
+        int start = 0;
+        int startIndex = -1, endIndex = -1;
+        for (int i = 0; i < arr.length; i++) {
+            if (sum == 0)
+                start = i;
+            sum += arr[i];
+            if (sum > maxi) {
+                maxi = sum;
+                startIndex = start;
+                endIndex = i;
+            }
+            if (sum < 0) {
+                sum = 0;
+            }
+        }
+        ArrayList<Integer> res = new ArrayList<>();
+        for (int i = startIndex; i <= endIndex; i++) {
+            res.add(arr[i]);
+        }
+        System.out.println("Maxium Sub-Array Sum = " + maxi);
+        return res;
+    }
+
+    
 
 }

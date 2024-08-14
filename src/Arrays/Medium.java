@@ -109,6 +109,29 @@ public class Medium {
         return res;
     }
 
-    
+    public static int maxProfit(int[] prices) {
+        int profit = 0;
+        int minCost = prices[0];
+        for (int i = 0; i < prices.length; i++) {
+            int cost = prices[i] - minCost;
+            profit = Math.max(profit, cost);
+            minCost = Math.min(minCost, prices[i]);
+        }
+        return profit;
+    }
+
+    public static ArrayList<Integer> leaders(int n, int arr[]) {
+        ArrayList<Integer> ans = new ArrayList<>();
+        int max = arr[n - 1];
+        ans.add(arr[n - 1]);
+        for (int i = n - 2; i >= 0; i--) {
+            if (arr[i] > max) {
+                ans.add(arr[i]);
+                max = arr[i];
+            }
+        }
+        ans = new ArrayList<Integer>(ans.reversed());
+        return ans;
+    }
 
 }

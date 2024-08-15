@@ -1,18 +1,22 @@
 class Solution {
-    public static int countSeniors(String[] citizens) {
-        int count = 0;
-        for (String citizen : citizens) {
-            int tensPlace = (citizen.charAt(11) - '0') * 10;
-            int onesPlace = (citizen.charAt(12) - '0');
-            if (tensPlace + onesPlace > 60) {
-                count++;
+    public boolean lemonadeChange(int[] bills) {
+        int numberOfFives = 0, numberOfTens = 0;
+        for (int i : bills) {
+            if (i == 5) { // 5$
+                numberOfFives++;
+            } else if (i == 10) { // 10$
+                numberOfFives--;
+                numberOfTens++;
+            } else if (numberOfTens > 0 && numberOfFives >= 1) { // 20$
+                numberOfTens--;
+                numberOfFives--;
+            } else {
+                numberOfFives -= 3;
+            }
+            if (numberOfFives < 0) {
+                return false;
             }
         }
-        return count;
-    }
-
-    public static void main(String[] args) {
-        String citizens[] = { "7868190130M7522", "5303914400F9211", "9273338290F4010" };
-        System.out.println(countSeniors(citizens));
+        return true;
     }
 }

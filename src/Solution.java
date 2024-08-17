@@ -1,31 +1,27 @@
+import java.util.HashSet;
+import java.util.Set;
+
 class Solution {
-    public void nextPermutation(int[] nums) {
-        if (nums == null || nums.length <= 1){
-            return;
+    public int longestConsecutive(int[] nums) {
+        if (nums.length == 0) {
+            return 0;
         }
-        int i = nums.length - 2;
-        while (i >= 0 && nums[i] >= nums[i + 1]){
-            i--;
+        int longest = 1;
+        Set<Integer> set = new HashSet<>();
+        for (int i = 0; i < nums.length; i++) {
+            set.add(nums[i]);
         }
-        if (i >= 0) {
-            int j = nums.length - 1;
-            while (nums[j] <= nums[i]){
-                j--;
+        for (int it : set) {
+            if (!set.contains(it - 1)) {
+                int count = 1;
+                int x = it;
+                while (set.contains(x + 1)) {
+                    x++;
+                    count++;
+                }
+                longest = Math.max(longest, count);
             }
-            swap(nums, i, j);
         }
-        reverse(nums, i + 1, nums.length - 1);
-    }
-
-    public void swap(int[] nums, int i, int j) {
-        int temp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = temp;
-    }
-
-    public void reverse(int[] nums, int i, int j) {
-        while (i < j) {
-            swap(nums, i++, j--);
-        }
+        return longest;
     }
 }

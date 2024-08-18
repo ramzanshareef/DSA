@@ -1,40 +1,66 @@
-You are given two integer arrays energyDrinkA and energyDrinkB of the same length n by a futuristic sports scientist. These arrays represent the energy boosts per hour provided by two different energy drinks, A and B, respectively.
-You want to maximize your total energy boost by drinking one energy drink per hour. However, if you want to switch from consuming one energy drink to the other, you need to wait for one hour to cleanse your system (meaning you won't get any energy boost in that hour).
-Return the maximum total energy boost you can gain in the next n hours.
-Note that you can start consuming either of the two energy drinks.
+You are given two positive integers n and k.
+
+An integer x is called k-palindromic if:
+
+x is a 
+palindrome
+.
+x is divisible by k.
+Return the largest integer having n digits (as a string) that is k-palindromic.
+
+Note that the integer must not have leading zeros.
+
+ 
+
+Example 1:
+
+Input: n = 3, k = 5
+
+Output: "595"
+
+Explanation:
+
+595 is the largest k-palindromic integer with 3 digits.
+
+Example 2:
+
+Input: n = 1, k = 4
+
+Output: "8"
+
+Explanation:
+
+4 and 8 are the only k-palindromic integers with 1 digit.
+
+Example 3:
+
+Input: n = 5, k = 6
+
+Output: "89898"
 
 class Solution {
-    public long maxEnergyBoost(int[] energyDrinkA, int[] energyDrinkB) {
-        long energy = 0;
-        char lastDrink = 'A';
-        if (energyDrinkA[0]>energyDrinkB[0]) {
-            energy += energyDrinkA[0];
-            lastDrink = 'A';
-        } else {
-            energy += energyDrinkB[0];
-            lastDrink = 'B';
-        }
-        for (int i=1; i<energyDrinkA.length; i++) {
-            if (lastDrink == 'A') {
-                if (energy+energyDrinkA[i]>energy+energyDrinkB[i]-1) {
-                    energy += energyDrinkA[i];
-                    lastDrink = 'A';
-                } else {
-                    energy += energyDrinkB[i];
-                    energy--;
-                    lastDrink = 'B';
-                }
-            } else {
-                if (energy+energyDrinkB[i]>energy+energyDrinkA[i] - 1) {
-                    energy += energyDrinkB[i];
-                    lastDrink = 'B';
-                } else {
-                    energy += energyDrinkA[i];
-                    energy--;
-                    lastDrink = 'A';
-                }
+    public String largestPalindrome(int n, int k) {
+        // take the largest number of n digits
+        long max = (long)Math.pow(10, n) - 1;
+        // take the smallest number of n digits
+        long min = (long)Math.pow(10, n - 1);
+        // iterate from max to min and check if the number is palindrome and divisible by k
+        for (long i = max; i >= min; i--) {
+            long num = getPalindrome(i);
+            if (num <= max && num % k == 0) {
+                return String.valueOf(num);
             }
         }
-        return energy;
+        return "";
+    }
+
+    private long getPalindrome(long num) {
+        long res = num;
+        num /= 10;
+        while (num > 0) {
+            res = res * 10 + num % 10;
+            num /= 10;
+        }
+        return res;
     }
 }

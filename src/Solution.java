@@ -1,42 +1,35 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 class Solution {
-    public List<Integer> majorityElement(int[] nums) {
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        Arrays.sort(nums);
         int n = nums.length;
-        int count1 = 0, count = 0;
-        int firstEle = Integer.MIN_VALUE;
-        int secEle = Integer.MIN_VALUE;
         for (int i = 0; i < n; i++) {
-            if (count1 == 0 && secEle != nums[i]) {
-                count1 = 1;
-                firstEle = nums[i];
-            } else if (count == 0 && firstEle != nums[i]) {
-                count = 1;
-                secEle = nums[i];
-            } else if (nums[i] == firstEle) {
-                count1++;
-            } else if (nums[i] == secEle) {
-                count++;
-            } else {
-                count1--;
-                count--;
+            if (i != 0 && nums[i] == nums[i - 1])
+                continue;
+            int j = i + 1;
+            int k = n - 1;
+            while (j < k) {
+                int sum = nums[i] + nums[j] + nums[k];
+                if (sum < 0) {
+                    j++;
+                } else if (sum > 0) {
+                    k--;
+                } else {
+                    List<Integer> temp = Arrays.asList(nums[i], nums[j], nums[k]);
+                    res.add(temp);
+                    j++;
+                    k--;
+                    while (j < k && nums[j] == nums[j - 1])
+                        j++;
+                    while (j < k && nums[k] == nums[k + 1])
+                        k--;
+                }
             }
         }
-        List<Integer> res = new ArrayList<>();
-        count1 = 0;
-        count = 0;
-        for (int i = 0; i < n; i++) {
-            if (nums[i] == firstEle)
-                count1++;
-            if (nums[i] == secEle)
-                count++;
-        }
-
-        int minLength = (int) (n / 3) + 1;
-        if (count1 >= minLength)
-            res.add(firstEle);
-        if (count >= minLength)
-            res.add(secEle);
         return res;
     }
 }

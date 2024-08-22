@@ -1,56 +1,15 @@
-import java.util.ArrayList;
-
 class Solution {
-    private static void merge(int[] arr, int low, int mid, int high) {
-        ArrayList<Integer> temp = new ArrayList<>();
-        int left = low;
-        int right = mid + 1;
-        while (left <= mid && right <= high) {
-            if (arr[left] <= arr[right]) {
-                temp.add(arr[left]);
-                left++;
-            } else {
-                temp.add(arr[right]);
-                right++;
-            }
+    public int maxProduct(int[] nums) {
+        double prefProd = 1;
+        double suffProd = 1;
+        double res = Integer.MIN_VALUE;
+        for (int i = 0; i < nums.length; i++) {
+            suffProd = suffProd == 0 ? 1 : suffProd;
+            prefProd = prefProd == 0 ? 1 : prefProd;
+            prefProd *= nums[i];
+            suffProd *= nums[nums.length-1-i];
+            res = Math.max(res, Math.max(suffProd, prefProd));
         }
-        while (left <= mid) {
-            temp.add(arr[left]);
-            left++;
-        }
-        while (right <= high) {
-            temp.add(arr[right]);
-            right++;
-        }
-        for (int i = low; i <= high; i++) {
-            arr[i] = temp.get(i - low);
-        }
-    }
-
-    public static int countPairs(int[] arr, int low, int mid, int high) {
-        int right = mid + 1;
-        int cnt = 0;
-        for (int i = low; i <= mid; i++) {
-            while (right <= high && arr[i] > 2 * arr[right])
-                right++;
-            cnt += (right - (mid + 1));
-        }
-        return cnt;
-    }
-
-    public static int mergeSort(int[] arr, int low, int high) {
-        int cnt = 0;
-        if (low >= high)
-            return cnt;
-        int mid = (low + high) / 2;
-        cnt += mergeSort(arr, low, mid);
-        cnt += mergeSort(arr, mid + 1, high);
-        cnt += countPairs(arr, low, mid, high);
-        merge(arr, low, mid, high);
-        return cnt;
-    }
-
-    public static int team(int[] skill, int n) {
-        return mergeSort(skill, 0, n - 1);
+        return (int) res;
     }
 }

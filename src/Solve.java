@@ -1,25 +1,47 @@
-class Solve {
-    public static int[] findTwoElement(int arr[], int n) {
-        int res[] = new int[2];
-        int actualSum = (n * (n + 1)) / 2;
-        int sum = 0;
-        for (int i = 0; i < n; i++) {
-            sum += arr[i];
-        }
-        res[0] = Integer.MAX_VALUE;
-        for (int i = 0; i < n; i++) {
-            int seat = Math.abs(arr[i]) - 1;
-            if (arr[seat] < 0) {
-                res[0] = Math.min(res[0], Math.abs(arr[seat]));
+import java.util.ArrayList;
+
+class Solution {
+    private static int merge(long[] arr, int low, int mid, int high) {
+        ArrayList<Long> temp = new ArrayList<>();
+        int left = low;
+        int right = mid + 1;
+        int cnt = 0;
+        while (left <= mid && right <= high) {
+            if (arr[left] <= arr[right]) {
+                temp.add(arr[left]);
+                left++;
+            } else {
+                temp.add(arr[right]);
+                cnt += (mid - left + 1);
+                right++;
             }
-            arr[seat] *= -1;
         }
-        res[1] = actualSum - (sum-res[0]);
-        return res;
+        while (left <= mid) {
+            temp.add(arr[left]);
+            left++;
+        }
+        while (right <= high) {
+            temp.add(arr[right]);
+            right++;
+        }
+        for (int i = low; i <= high; i++) {
+            arr[i] = temp.get(i - low);
+        }
+        return cnt;
     }
 
-    public static void main(String[] args) {
-        int arr[] = {3, 1, 4, 4};
-        Arrays.Basics.print1DArray(findTwoElement(arr, arr.length));
+    public static int mergeSort(long[] arr, int low, int high) {
+        int cnt = 0;
+        if (low >= high)
+            return cnt;
+        int mid = (low + high) / 2;
+        cnt += mergeSort(arr, low, mid);
+        cnt += mergeSort(arr, mid + 1, high);
+        cnt += merge(arr, low, mid, high);
+        return cnt;
+    }
+
+    static long inversionCount(long arr[], int n) {
+        return mergeSort(arr, 0, n - 1);
     }
 }

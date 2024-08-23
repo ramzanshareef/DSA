@@ -1,5 +1,6 @@
 package Search;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Searching {
@@ -119,4 +120,45 @@ public class Searching {
         return -1;
     }
 
+    public static boolean findInRotatedSortedArrayWithDuplicates(ArrayList<Integer> a, int target) {
+        int n = a.size(), low = 0, high = n - 1;
+        if (a.get(low) == target) {
+            return true;
+        }
+        while (low <= high && a.get(low) == a.get(high)) {
+            low++;
+            high--;
+        }
+        if (low > high) {
+            return false;
+        }
+        int newStart = low, newEnd = high;
+        int pivot = newEnd + 1;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (a.get(mid) <= a.get(newEnd)) {
+                pivot = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        if (a.get(newEnd) < target) {
+            low = newStart;
+            high = pivot - 1;
+        } else {
+            low = pivot;
+            high = newEnd;
+        }
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (a.get(mid) == target) {
+                return true;
+            } else if (a.get(mid) > target) {
+                high = mid - 1;
+            } else
+                low = mid + 1;
+        }
+        return false;
+    }
 }

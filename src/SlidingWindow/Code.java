@@ -105,4 +105,56 @@ public class Code {
         }
         return res;
     }
+
+    public static int getLengthofLongestSubstring(int k, String s) {
+        int left = 0;
+        int right = 0;
+        int res = 0;
+        HashMap<Character, Integer> map = new HashMap<>();
+        while (right < s.length()) {
+            map.put(s.charAt(right), map.getOrDefault(s.charAt(right), 0) + 1);
+            if (map.size() > k) {
+                if (map.get(s.charAt(left)) == 1) {
+                    map.remove(s.charAt(left));
+                } else {
+                    map.put(s.charAt(left), map.get(s.charAt(left)) - 1);
+                }
+                left++;
+            }
+            res = Math.max(res, right - left + 1);
+            right++;
+        }
+        return res;
+    }
+
+    public static int numberOfSubstrings(String s) {
+        int[] map = new int[3];
+        int res = 0;
+        int left = 0;
+        for (int i = 0; i < s.length(); i++) {
+            map[s.charAt(i) - 'a']++;
+
+            while (map[0] > 0 && map[1] > 0 && map[2] > 0) {
+                res += s.length() - i;
+                map[s.charAt(left++) - 'a']--;
+            }
+        }
+        return res;
+    }
+
+    public static int characterReplacement(String s, int k) {
+        int len = s.length();
+        int[] count = new int[26];
+        int left = 0, right = 0, maxCount = 0, res = 0;
+        while (right < len) {
+            maxCount = Math.max(maxCount, ++count[s.charAt(right) - 'A']);
+            while (right - left + 1 - maxCount > k) {
+                count[s.charAt(left) - 'A']--;
+                left++;
+            }
+            res = Math.max(res, right - left + 1);
+            right++;
+        }
+        return res;
+    }
 }

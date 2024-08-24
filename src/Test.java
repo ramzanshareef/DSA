@@ -1,6 +1,6 @@
 public class Test {
     public static void main(String[] args) {
-        int[] arr = { -1, 2, 3, 3, 4, 5, -1 };
-        System.out.println(SlidingWindow.Code.maxSumWithKSizeSubArray(arr, 4));
+        int[] arr = { 2, 5, 1, 7, 10 };
+        System.out.println(SlidingWindow.Code.longestSubArrayWithSumLessThanEqualToK(arr, 14));
     }
 }

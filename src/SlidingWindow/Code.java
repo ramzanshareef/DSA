@@ -1,5 +1,7 @@
 package SlidingWindow;
 
+import java.util.HashMap;
+
 public class Code {
     public static int maxSumWithKSizeSubArray(int arr[], int k) {
         int res = 0;
@@ -74,8 +76,31 @@ public class Code {
                 left++;
             }
             if (zereos <= k) {
-                res = Math.max(res, right-left + 1);
+                res = Math.max(res, right - left + 1);
             }
+            right++;
+        }
+        return res;
+    }
+
+    public static int totalFruit(int[] arr) {
+        if (arr.length == 1) {
+            return 1;
+        }
+        int res = 0;
+        int left = 0, right = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        while (right < arr.length) {
+            map.put(arr[right], map.getOrDefault(arr[right], 0) + 1);
+            if (map.size() > 2) {
+                if (map.get(arr[left]) == 1) {
+                    map.remove(arr[left]);
+                } else {
+                    map.put(arr[left], map.get(arr[left]) - 1);
+                }
+                left++;
+            }
+            res = Math.max(res, right - left + 1);
             right++;
         }
         return res;

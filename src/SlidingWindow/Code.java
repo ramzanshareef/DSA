@@ -30,13 +30,30 @@ public class Code {
                 left++;
             }
             // if (sum > k) {
-            //     sum -= arr[left];
-            //     left++;
+            // sum -= arr[left];
+            // left++;
             // }
             if (sum <= k) {
                 res = Math.max(res, right - left + 1);
             }
             right++;
+        }
+        return res;
+    }
+
+    public static int maxScore(int[] arr, int k) {
+        int leftSum = 0;
+        int rightSum = 0;
+        int res = 0;
+        for (int i = 0; i <= k-1; i++) {
+            leftSum += arr[i];
+            res = Math.max(res, leftSum);
+        }
+        int rightIndex = arr.length-1;
+        for (int i = k-1; i >=0; i--) {
+            leftSum -= arr[i];
+            rightSum += arr[rightIndex--];
+            res = Math.max(res, leftSum+rightSum);
         }
         return res;
     }

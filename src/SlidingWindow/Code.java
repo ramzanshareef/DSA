@@ -29,6 +29,10 @@ public class Code {
                 sum -= arr[left];
                 left++;
             }
+            // if (sum > k) {
+            //     sum -= arr[left];
+            //     left++;
+            // }
             if (sum <= k) {
                 res = Math.max(res, right - left + 1);
             }

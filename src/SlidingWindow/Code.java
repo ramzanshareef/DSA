@@ -157,4 +157,53 @@ public class Code {
         }
         return res;
     }
+
+    public static int countSubArraysWithSumKInBinaryArray(int arr[], int k) {
+        return countSubArraysWithSumLessThanKInBinaryArray(arr, k)
+                - countSubArraysWithSumLessThanKInBinaryArray(arr, k - 1);
+    }
+
+    public static int countSubArraysWithSumLessThanKInBinaryArray(int arr[], int k) {
+        if (k < 0) {
+            return 0;
+        }
+        int left = 0, right = 0, res = 0, sum = 0;
+        while (right < arr.length) {
+            sum += arr[right];
+            if (sum > k) {
+                sum -= arr[right];
+                left++;
+            }
+            res += right - left + 1;
+            right++;
+        }
+        return res;
+    }
+
+    public int numberOfSubarrays(int[] nums, int k) {
+        return numberOfSubarraysWithMaxKOddNumbers(nums, k)-numberOfSubarraysWithMaxKOddNumbers(nums, k-1);
+    }
+
+    public int numberOfSubarraysWithMaxKOddNumbers(int arr[], int k) {
+        if (k < 0) {
+            return 0;
+        }
+        int res = 0, left = 0, right = 0, oddNumbers = 0;
+        while (right < arr.length) {
+            if (arr[right] % 2 != 0) {
+                oddNumbers++;
+            }
+            while (oddNumbers > k) {
+                if (arr[left] % 2 != 0) {
+                    oddNumbers--;
+                }
+                left++;
+            }
+            if (oddNumbers <= k) {
+                res += right - left;
+            }
+            right++;
+        }
+        return res;
+    }
 }

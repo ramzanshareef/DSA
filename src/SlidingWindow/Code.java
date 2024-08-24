@@ -45,15 +45,38 @@ public class Code {
         int leftSum = 0;
         int rightSum = 0;
         int res = 0;
-        for (int i = 0; i <= k-1; i++) {
+        for (int i = 0; i <= k - 1; i++) {
             leftSum += arr[i];
             res = Math.max(res, leftSum);
         }
-        int rightIndex = arr.length-1;
-        for (int i = k-1; i >=0; i--) {
+        int rightIndex = arr.length - 1;
+        for (int i = k - 1; i >= 0; i--) {
             leftSum -= arr[i];
             rightSum += arr[rightIndex--];
-            res = Math.max(res, leftSum+rightSum);
+            res = Math.max(res, leftSum + rightSum);
+        }
+        return res;
+    }
+
+    public static int longestSubArrayWithKZereos(int arr[], int k) {
+        int left = 0;
+        int right = 0;
+        int zereos = 0;
+        int res = 0;
+        while (right < arr.length) {
+            if (arr[right] == 0) {
+                zereos++;
+            }
+            if (zereos > k) {
+                if (arr[left] == 0) {
+                    zereos--;
+                }
+                left++;
+            }
+            if (zereos <= k) {
+                res = Math.max(res, right-left + 1);
+            }
+            right++;
         }
         return res;
     }

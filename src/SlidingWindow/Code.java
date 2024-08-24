@@ -128,31 +128,30 @@ public class Code {
     }
 
     public static int numberOfSubstrings(String s) {
-        int[] map = new int[3];
+        int[] map = new int[] { -1, -1, -1 };
         int res = 0;
-        int left = 0;
         for (int i = 0; i < s.length(); i++) {
-            map[s.charAt(i) - 'a']++;
-
-            while (map[0] > 0 && map[1] > 0 && map[2] > 0) {
-                res += s.length() - i;
-                map[s.charAt(left++) - 'a']--;
-            }
+            map[s.charAt(i) - 'a'] = i;
+            if (map[0] != -1 && map[1] != -1 && map[2] != -1)
+                res += 1 + Math.min(map[0], Math.min(map[1], map[2]));
         }
         return res;
     }
 
     public static int characterReplacement(String s, int k) {
         int len = s.length();
-        int[] count = new int[26];
-        int left = 0, right = 0, maxCount = 0, res = 0;
+        int[] hash = new int[26];
+        int left = 0, right = 0, maxFreq = 0, res = 0;
         while (right < len) {
-            maxCount = Math.max(maxCount, ++count[s.charAt(right) - 'A']);
-            while (right - left + 1 - maxCount > k) {
-                count[s.charAt(left) - 'A']--;
+            hash[s.charAt(right) - 'A']++;
+            maxFreq = Math.max(maxFreq, hash[s.charAt(right) - 'A']);
+            if ((right - left + 1) - maxFreq > k) {
+                hash[s.charAt(left) - 'A']--;
                 left++;
             }
-            res = Math.max(res, right - left + 1);
+            if ((right - left + 1) - maxFreq <= k) {
+                res = Math.max(res, right - left + 1);
+            }
             right++;
         }
         return res;

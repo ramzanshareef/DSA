@@ -1,11 +1,18 @@
 import java.util.*;
 
 class Solution {
-    public int totalFruit(int[] fruits) {
-        HashMap<Integer, Integer> map = new HashMap<>();
-        int res = 0;
-        int left = 0, right = 0;
-        
+    public List<List<Integer>> subsets(int[] nums) {
+        int subsets = (1<<nums.length);
+        List<List<Integer>> res = new ArrayList<>();
+        for (int i=0;i<subsets;i++){
+            List<Integer> list = new ArrayList<>();
+            for (int j=0;j<nums.length;j++){
+                if ((i & (1 << j)) != 0){
+                    list.add(nums[j]);
+                }
+            }
+            res.add(list);
+        }
         return res;
     }
 }

@@ -1,35 +1,27 @@
 class Solution {
-    public int longestSubstring(String s, int k) {
-        int n = s.length();
-        int res = 0;
-        for (int uniqueTarget = 1; uniqueTarget <= 26; uniqueTarget++) {
-            int[] freq = new int[26];
-            int l = 0, r = 0;
-            int uniqueCount = 0;
-            int countAtLeastK = 0;
-            while (r < n) {
-                if (uniqueCount <= uniqueTarget) {
-                    int index = s.charAt(r) - 'a';
-                    if (freq[index] == 0)
-                        uniqueCount++;
-                    freq[index]++;
-                    if (freq[index] == k)
-                        countAtLeastK++;
-                    r++;
-                }
-                while (uniqueCount > uniqueTarget) {
-                    int index = s.charAt(l) - 'a';
-                    if (freq[index] == k)
-                        countAtLeastK--;
-                    freq[index]--;
-                    if (freq[index] == 0)
-                        uniqueCount--;
-                    l++;
-                }
-                if (uniqueCount == uniqueTarget && uniqueCount == countAtLeastK) {
-                    res = Math.max(res, r - l);
-                }
+    public int minEatingSpeed(int[] piles, int h) {
+        int max = piles[0];
+        for (int i = 0; i < piles.length; i++) {
+            max = Math.max(max, piles[i]);
+        }
+        int low = 1;
+        int high = max;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            int val = totalHoursWithSpeekK(piles, mid);
+            if (val <= h) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
             }
+        }
+        return low;
+    }
+
+    private int totalHoursWithSpeekK(int piles[], int k) {
+        int res = 0;
+        for (int i = 0; i < piles.length; i++) {
+            res += Math.ceil((double) piles[i] / (double) k);
         }
         return res;
     }

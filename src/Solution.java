@@ -9,17 +9,18 @@ public class Solution {
         }
     }
 
-    public ListNode middleNode(ListNode head) {
-        ListNode slow = head;
+    public ListNode deleteMiddle(ListNode head) {
+        ListNode middleNode = head;
         ListNode fast = head;
-        while (fast != null) {
-            if (fast.next!=null && fast.next.next != null) {
-                fast = fast.next.next;
-            } else {
-                fast = fast.next;
-            }
-            slow = slow.next;
+        if (fast.next == null) {
+            head = null;
+            return null;
         }
-        return slow;
+        while (fast.next.next.next != null && fast.next.next != null) {
+            fast = fast.next.next;
+            middleNode = middleNode.next;
+        }
+        middleNode.next = middleNode.next.next;
+        return head;
     }
 }

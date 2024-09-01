@@ -4,6 +4,16 @@ import LL.Implementation.MyLinkedList;
 
 public class Basics {
 
+    public class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode(int x) {
+            val = x;
+            next = null;
+        }
+    }
+
     public static void main(String[] args) {
         MyLinkedList ll = new MyLinkedList();
         ll.insertAtEnd(1);
@@ -18,6 +28,28 @@ public class Basics {
         System.out.println();
         System.out.println(ll.head.data);
         System.out.println(ll.tail.data);
+    }
+
+    public boolean hasCycle(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        if (fast == null || fast.next == null) {
+            return false;
+        }
+        while (fast != null) {
+            if (slow == null) {
+                return false;
+            }
+            slow = slow.next;
+            if (fast.next == null) {
+                return false;
+            }
+            fast = fast.next.next;
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

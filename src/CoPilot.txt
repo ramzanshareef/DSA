@@ -1,65 +1,89 @@
-You are given a string s consisting of lowercase English letters, and an integer k.
-
-First, convert s into an integer by replacing each letter with its position in the alphabet (i.e., replace 'a' with 1, 'b' with 2, ..., 'z' with 26). Then, transform the integer by replacing it with the sum of its digits. Repeat the transform operation k times in total.
-
-For example, if s = "zbax" and k = 2, then the resulting integer would be 8 by the following operations:
-
-Convert: "zbax" ➝ "(26)(2)(1)(24)" ➝ "262124" ➝ 262124
-Transform #1: 262124 ➝ 2 + 6 + 2 + 1 + 2 + 4 ➝ 17
-Transform #2: 17 ➝ 1 + 7 ➝ 8
-Return the resulting integer after performing the operations described above.
+You are given an array of integers nums and the head of a linked list. Return the head of the modified linked list after removing all nodes from the linked list that have a value that exists in nums.
 
  
 
 Example 1:
 
-Input: s = "iiii", k = 1
-Output: 36
-Explanation: The operations are as follows:
-- Convert: "iiii" ➝ "(9)(9)(9)(9)" ➝ "9999" ➝ 9999
-- Transform #1: 9999 ➝ 9 + 9 + 9 + 9 ➝ 36
-Thus the resulting integer is 36.
+Input: nums = [1,2,3], head = [1,2,3,4,5]
+
+Output: [4,5]
+
+Explanation:
+
+
+
+Remove the nodes with values 1, 2, and 3.
+
 Example 2:
 
-Input: s = "leetcode", k = 2
-Output: 6
-Explanation: The operations are as follows:
-- Convert: "leetcode" ➝ "(12)(5)(5)(20)(3)(15)(4)(5)" ➝ "12552031545" ➝ 12552031545
-- Transform #1: 12552031545 ➝ 1 + 2 + 5 + 5 + 2 + 0 + 3 + 1 + 5 + 4 + 5 ➝ 33
-- Transform #2: 33 ➝ 3 + 3 ➝ 6
-Thus the resulting integer is 6.
+Input: nums = [1], head = [1,2,1,2,1,2]
+
+Output: [2,2,2]
+
+Explanation:
+
+
+
+Remove the nodes with value 1.
+
 Example 3:
 
-Input: s = "zbax", k = 2
-Output: 8
+Input: nums = [5], head = [1,2,3,4]
+
+Output: [1,2,3,4]
+
+Explanation:
+
+
+
+No node has value 5.
+
  
 
 Constraints:
 
-1 <= s.length <= 100
-1 <= k <= 10
-s consists of lowercase English letters.
+1 <= nums.length <= 105
+1 <= nums[i] <= 105
+All elements in nums are unique.
+The number of nodes in the given list is in the range [1, 105].
+1 <= Node.val <= 105
+The input is generated such that there is at least one node in the linked list that has a value not present in nums.
 
 class Solution {
-    public int getLucky(String s, int k) {
-        // complete the code
-        StringBuilder sb = new StringBuilder();
-        for (char c : s.toCharArray()) {
-            sb.append(c - 'a' + 1);
+    public class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode() {
         }
-        String str = sb.toString();
-        int sum = 0;
-        for (char c : str.toCharArray()) {
-            sum += c - '0';
+
+        ListNode(int val) {
+            this.val = val;
         }
-        for (int i = 1; i < k; i++) {
-            int temp = 0;
-            while (sum > 0) {
-                temp += sum % 10;
-                sum /= 10;
+
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+
+    public ListNode modifiedList(int[] nums, ListNode head) {
+        HashMap<Integer, Integer> numsMap = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            numsMap.put(nums[i], numsMap.getOrDefault(nums[i], 0)+1);
+        }
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode prev = dummy;
+        ListNode curr = head;
+        while (curr != null) {
+            if (numsMap.containsKey(curr.val)) {
+                prev.next = curr.next;
+            } else {
+                prev = curr;
             }
-            sum = temp;
+            curr = curr.next;
         }
-        return sum;
+        return dummy.next;
     }
 }

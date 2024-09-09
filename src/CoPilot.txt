@@ -1,89 +1,99 @@
-You are given an array of integers nums and the head of a linked list. Return the head of the modified linked list after removing all nodes from the linked list that have a value that exists in nums.
+You are given two integers m and n, which represent the dimensions of a matrix.
+
+You are also given the head of a linked list of integers.
+
+Generate an m x n matrix that contains the integers in the linked list presented in spiral order (clockwise), starting from the top-left of the matrix. If there are remaining empty spaces, fill them with -1.
+
+Return the generated matrix.
 
  
 
 Example 1:
 
-Input: nums = [1,2,3], head = [1,2,3,4,5]
 
-Output: [4,5]
-
-Explanation:
-
-
-
-Remove the nodes with values 1, 2, and 3.
-
+Input: m = 3, n = 5, head = [3,0,2,6,8,1,7,9,4,2,5,5,0]
+Output: [[3,0,2,6,8],[5,0,-1,-1,1],[5,2,4,9,7]]
+Explanation: The diagram above shows how the values are printed in the matrix.
+Note that the remaining spaces in the matrix are filled with -1.
 Example 2:
 
-Input: nums = [1], head = [1,2,1,2,1,2]
 
-Output: [2,2,2]
-
-Explanation:
-
-
-
-Remove the nodes with value 1.
-
-Example 3:
-
-Input: nums = [5], head = [1,2,3,4]
-
-Output: [1,2,3,4]
-
-Explanation:
-
-
-
-No node has value 5.
-
+Input: m = 1, n = 4, head = [0,1,2]
+Output: [[0,1,2,-1]]
+Explanation: The diagram above shows how the values are printed from left to right in the matrix.
+The last space in the matrix is set to -1.
  
 
 Constraints:
 
-1 <= nums.length <= 105
-1 <= nums[i] <= 105
-All elements in nums are unique.
-The number of nodes in the given list is in the range [1, 105].
-1 <= Node.val <= 105
-The input is generated such that there is at least one node in the linked list that has a value not present in nums.
+1 <= m, n <= 105
+1 <= m * n <= 105
+The number of nodes in the list is in the range [1, m * n].
+0 <= Node.val <= 1000
 
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
 class Solution {
-    public class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode() {
-        }
-
-        ListNode(int val) {
-            this.val = val;
-        }
-
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
-        }
-    }
-
-    public ListNode modifiedList(int[] nums, ListNode head) {
-        HashMap<Integer, Integer> numsMap = new HashMap<>();
-        for (int i = 0; i < nums.length; i++) {
-            numsMap.put(nums[i], numsMap.getOrDefault(nums[i], 0)+1);
-        }
-        ListNode dummy = new ListNode(0);
-        dummy.next = head;
-        ListNode prev = dummy;
-        ListNode curr = head;
-        while (curr != null) {
-            if (numsMap.containsKey(curr.val)) {
-                prev.next = curr.next;
-            } else {
-                prev = curr;
+    public static int[][] fillInSpiralOrder(int n) {
+        int[][] spiralMatrix = new int[n][n];
+        int tr = 0, br = n - 1, lc = 0, rc = n - 1;
+        int value = 1;
+        while (value <= n * n) {
+            for (int j = lc; j <= rc && value <= n * n; j++) {
+                spiralMatrix[tr][j] = value++;
             }
-            curr = curr.next;
+            tr++;
+            for (int i = tr; i <= br && value <= n * n; i++) {
+                spiralMatrix[i][rc] = value++;
+            }
+            rc--;
+            for (int j = rc; j >= lc && value <= n * n; j--) {
+                spiralMatrix[br][j] = value++;
+            }
+            br--;
+            for (int i = br; i >= tr && value <= n * n; i--) {
+                spiralMatrix[i][lc] = value++;
+            }
+            lc++;
         }
-        return dummy.next;
+        return spiralMatrix;
+    } // this is how i would fill in the spiral order
+    public int[][] spiralMatrix(int m, int n, ListNode head) {
+        // taking the code from the previous function and modifying it to fit the requirements of the question
+        int[][] spiralMatrix = new int[m][n];
+        Arrays.fill(spiralMatrix, -1);
+        int tr = 0, br = m - 1, lc = 0, rc = n - 1;
+        int value = 1;
+        while (head != null) {
+            for (int j = lc; j <= rc && head != null; j++) {
+                spiralMatrix[tr][j] = head.val;
+                head = head.next;
+            }
+            tr++;
+            for (int i = tr; i <= br && head != null; i++) {
+                spiralMatrix[i][rc] = head.val;
+                head = head.next;
+            }
+            rc--;
+            for (int j = rc; j >= lc && head != null; j--) {
+                spiralMatrix[br][j] = head.val;
+                head = head.next;
+            }
+            br--;
+            for (int i = br; i >= tr && head != null; i--) {
+                spiralMatrix[i][lc] = head.val;
+                head = head.next;
+            }
+            lc++;
+        }
+        return spiralMatrix;
     }
 }

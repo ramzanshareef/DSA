@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +14,8 @@ class HashMapBasic {
             }
         }
         System.gc();
+        int arr[][] = new int[3][4];
+        Arrays.fill(arr, -1);
         return new int[] { -1, -1 };
     }
 }

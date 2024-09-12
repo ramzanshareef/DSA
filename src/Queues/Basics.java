@@ -52,4 +52,29 @@ public class Basics {
         }
     }
 
+    public static ArrayList<Integer> rearrangeQueue(int n, Queue<Integer> q) {
+        Stack<Integer> st = new Stack<>();
+        for (int i = 0; i < n / 2; i++) {
+            st.push(q.poll());
+        }
+        for (int i = 0; i < n / 2; i++) {
+            q.add(st.pop());
+        }
+        for (int i = 0; i < n / 2; i++) {
+            st.push(q.poll());
+        }
+        for (int i = 0; i < n / 2; i++) {
+            q.add(st.pop());
+            q.add(q.poll());
+        }
+        ArrayList<Integer> res = new ArrayList<>();
+        while (!q.isEmpty()) {
+            st.push(q.poll());
+        }
+        while (!st.isEmpty()) {
+            res.add(st.pop());
+        }
+        return res;
+    }
+
 }

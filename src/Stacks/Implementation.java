@@ -107,4 +107,61 @@ public class Implementation {
             this.data = data;
         }
     }
+
+    public static class MinStack {
+        private int capacity;
+        private int arr[];
+        private int size;
+
+        MinStack(int capacity) {
+            this.capacity = capacity;
+            arr = new int[this.capacity];
+        }
+
+        int peek() {
+            if (size <= 0) {
+                System.out.println("Stack Underflow, returning -1");
+                return -1;
+            }
+            return arr[size - 1];
+        }
+
+        void push(int val) {
+            if (size == capacity) {
+                System.out.println("Stack Overflow!");
+                return;
+            }
+            arr[size++] = val;
+        }
+
+        int pop() {
+            int topVal = arr[size];
+            arr[size--] = 0;
+            return topVal;
+        }
+
+        int size() {
+            return size;
+        }
+
+        boolean isEmpty() {
+            return size == 0;
+        }
+
+        boolean isFull() {
+            return size == capacity;
+        }
+
+        int capacity() {
+            return capacity;
+        }
+
+        void display() {
+            int i = 0;
+            while (i < size) {
+                System.out.print(arr[i++] + " ");
+            }
+        }
+
+    }
 }

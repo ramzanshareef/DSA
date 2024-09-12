@@ -2,7 +2,7 @@ import Stacks.Questions;
 
 public class Test {
     public static void main(String[] args) {
-        int arr[] = { 10, 4, 5, 90, 120, 80 };
-        Arrays.Basics.print1DArray(Questions.calculateSpan(arr, arr.length));
+        int arr[] = { 5, 2, 4, 6, 3, 5 };
+        Arrays.Basics.print1DArray(Questions.previousSmallerElement(arr));
     }
 }

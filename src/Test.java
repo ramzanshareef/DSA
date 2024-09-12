@@ -1,8 +1,8 @@
-import Stacks.Questions;
+import Stacks.Expressions;
 
 public class Test {
     public static void main(String[] args) {
-        int arr[] = { 5, 2, 4, 6, 3, 5 };
-        Arrays.Basics.print1DArray(Questions.previousSmallerElement(arr));
+        String str = "8-5+3*4/6";
+        System.out.println(Expressions.infixEval(str));
     }
 }

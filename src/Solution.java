@@ -1,30 +1,37 @@
-import java.util.*;
+import java.util.Stack;
 
 class Solution {
-    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
-        ArrayList<Integer> nge = nextGreaterElementCal(nums2);
-        int res[] = new int[nums1.length];
-        for (int i = 0; i < nums1.length; i++) {
-            res[i] = nge.indexOf(nums1[i]);
-        }
-        return res;
-    }
-
-    private ArrayList<Integer> nextGreaterElementCal(int arr[]) {
-        ArrayList<Integer> res = new ArrayList<>(arr.length);
+    public int celebrity(int mat[][]) {
         Stack<Integer> st = new Stack<>();
-        res.set(arr.length - 1, -1);
-        for (int i = arr.length - 2; i >= 0; i--) {
-            while (st.size() > 0 && st.peek() < arr[i]) {
-                st.pop();
-            }
-            if (st.size() == 0) {
-                res.set(i, -1);
-            } else {
-                res.set(i, st.peek());
-            }
-            st.push(arr[i]);
+        for (int i = 0; i < mat.length; i++) {
+            st.push(i);
         }
-        return res;
+        while (st.size() > 1) {
+            int v1 = st.pop();
+            int v2 = st.pop();
+            if (mat[v1][v2] == 0) {
+                st.push(v1);
+            } else if (mat[v2][v1] == 0) {
+                st.push(v2);
+            }
+        }
+        if (st.size() == 0) {
+            return -1;
+        }
+        int potentialCeleb = st.pop();
+        for (int i = 0; i < mat.length; i++) {
+            if (mat[potentialCeleb][i] == 1) {
+                return -1;
+            }
+        }
+        for (int i = 0; i < mat.length; i++) {
+            if (i == potentialCeleb) {
+                continue;
+            }
+            if (mat[i][potentialCeleb] == 1) {
+                return -1;
+            }
+        }
+        return potentialCeleb;
     }
 }

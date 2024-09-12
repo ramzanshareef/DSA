@@ -15,7 +15,7 @@ public class Implementation {
         Node tail = null;
         int size = 0;
 
-        void insertAtStart(int value) {
+        public void insertAtStart(int value) {
             Node newNode = new Node(value);
             if (head == null) {
                 tail = newNode;
@@ -26,7 +26,7 @@ public class Implementation {
             size++;
         }
 
-        void insertAtEnd(int value) {
+        public void insertAtEnd(int value) {
             Node newNode = new Node(value);
             if (head == null) {
                 head = newNode;
@@ -37,7 +37,7 @@ public class Implementation {
             size++;
         }
 
-        void insertAt(int index, int value) {
+        public void insertAt(int index, int value) {
             int currIndex = 0;
             Node temp = head;
             Node newNode = new Node(value);
@@ -57,7 +57,7 @@ public class Implementation {
             size++;
         }
 
-        void display() {
+        public void display() {
             Node temp = head;
             while (temp != null) {
                 System.out.print(temp.data + " ");
@@ -65,7 +65,7 @@ public class Implementation {
             }
         }
 
-        int getElementAt(int index) {
+        public int getElementAt(int index) {
             int currIndex = 0;
             if (index == 0) {
                 return head.data;
@@ -78,7 +78,7 @@ public class Implementation {
             return temp.data;
         }
 
-        void deleteAt(int index) {
+        public void deleteAt(int index) {
             int currIndex = 0;
             Node temp = head;
             if (index == 0) {

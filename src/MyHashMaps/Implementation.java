@@ -2,6 +2,7 @@ package MyHashMaps;
 
 import java.util.*;
 
+@SuppressWarnings("unchecked")
 public class Implementation {
     static class MyHashMap<K, V> {
         public static final int DEFAULT_CAPACITY = 4;
@@ -19,7 +20,6 @@ public class Implementation {
             }
         }
 
-        @SuppressWarnings("unchecked")
         private void initBuckets(int N) {
             buckets = new LinkedList[N];
             for (int i = 0; i < buckets.length; i++) {
@@ -41,6 +41,17 @@ public class Implementation {
             return -1;
         }
 
+        private void reHash() {
+            LinkedList<Node>[] oldData = buckets;
+            initBuckets(oldData.length * 2);
+            n = 0;
+            for (var bucket : oldData) {
+                for (var node : bucket) {
+                    put(node.key, node.value);
+                }
+            }
+        }
+
         MyHashMap() {
             initBuckets(DEFAULT_CAPACITY);
         }
@@ -60,6 +71,9 @@ public class Implementation {
             } else {
                 Node currNode = currBucket.get(ei);
                 currNode.value = value;
+            }
+            if (n >= buckets.length * DEFAULT_LOAD_FACTOR) {
+                reHash();
             }
         }
 

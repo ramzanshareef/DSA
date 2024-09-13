@@ -1,37 +1,18 @@
-import java.util.Stack;
+import java.util.*;
 
 class Solution {
-    public int celebrity(int mat[][]) {
-        Stack<Integer> st = new Stack<>();
-        for (int i = 0; i < mat.length; i++) {
-            st.push(i);
+    public boolean isAnagram(String s, String t) {
+        Map<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 1) + 1);
         }
-        while (st.size() > 1) {
-            int v1 = st.pop();
-            int v2 = st.pop();
-            if (mat[v1][v2] == 0) {
-                st.push(v1);
-            } else if (mat[v2][v1] == 0) {
-                st.push(v2);
-            }
-        }
-        if (st.size() == 0) {
-            return -1;
-        }
-        int potentialCeleb = st.pop();
-        for (int i = 0; i < mat.length; i++) {
-            if (mat[potentialCeleb][i] == 1) {
-                return -1;
-            }
-        }
-        for (int i = 0; i < mat.length; i++) {
-            if (i == potentialCeleb) {
+        for (int i = 0; i < t.length(); i++) {
+            if (map.containsKey(t.charAt(i))) {
                 continue;
-            }
-            if (mat[i][potentialCeleb] == 1) {
-                return -1;
+            } else {
+                return false;
             }
         }
-        return potentialCeleb;
+        return true;
     }
 }

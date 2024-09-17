@@ -1,18 +1,22 @@
 import java.util.*;
 
 class Solution {
-    public boolean isAnagram(String s, String t) {
-        Map<Character, Integer> map = new HashMap<>();
-        for (int i = 0; i < s.length(); i++) {
-            map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 1) + 1);
+    public String[] uncommonFromSentences(String s1, String s2) {
+        String[] str1 = s1.split(" ");
+        String[] str2 = s2.split(" ");
+        HashMap<String, Integer> map = new HashMap<>();
+        for (String string : str1) {
+            map.put(string, map.getOrDefault(string, 0) + 1);
         }
-        for (int i = 0; i < t.length(); i++) {
-            if (map.containsKey(t.charAt(i))) {
-                continue;
-            } else {
-                return false;
+        for (String string : str2) {
+            map.put(string, map.getOrDefault(string, 0) + 1);
+        }
+        ArrayList<String> resList = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            if (entry.getValue() == 1) {
+                resList.add(entry.getKey());
             }
         }
-        return true;
+        return resList.toArray(new String[0]);
     }
 }

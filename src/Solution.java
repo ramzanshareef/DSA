@@ -1,22 +1,31 @@
-import java.util.*;
-
 class Solution {
-    public String[] uncommonFromSentences(String s1, String s2) {
-        String[] str1 = s1.split(" ");
-        String[] str2 = s2.split(" ");
-        HashMap<String, Integer> map = new HashMap<>();
-        for (String string : str1) {
-            map.put(string, map.getOrDefault(string, 0) + 1);
+    public long validSubstringCount(String primary, String pattern) {
+        int[] targetCount = new int[26];
+        for (char c : pattern.toCharArray()) {
+            targetCount[c - 'a']++;
         }
-        for (String string : str2) {
-            map.put(string, map.getOrDefault(string, 0) + 1);
-        }
-        ArrayList<String> resList = new ArrayList<>();
-        for (Map.Entry<String, Integer> entry : map.entrySet()) {
-            if (entry.getValue() == 1) {
-                resList.add(entry.getKey());
+        int[] windowCount = new int[26];
+        int start = 0;
+        int neededChars = pattern.length();
+        long res = 0;
+        for (int end = 0; end < primary.length(); end++) {
+            char curr = primary.charAt(end);
+            if (targetCount[curr - 'a'] > 0) {
+                if (windowCount[curr - 'a'] < targetCount[curr - 'a']) {
+                    neededChars--;
+                }
+            }
+            windowCount[curr - 'a']++;
+            while (neededChars == 0) {
+                res += primary.length() - end;
+                char startChar = primary.charAt(start);
+                windowCount[startChar - 'a']--;
+                if (targetCount[startChar - 'a'] > 0 && windowCount[startChar - 'a'] < targetCount[startChar] - 'a') {
+                    neededChars++;
+                }
+                start++;
             }
         }
-        return resList.toArray(new String[0]);
+        return res;
     }
 }

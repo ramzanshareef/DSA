@@ -1,31 +1,30 @@
+import java.util.*;
+
 class Solution {
-    public long validSubstringCount(String primary, String pattern) {
-        int[] targetCount = new int[26];
-        for (char c : pattern.toCharArray()) {
-            targetCount[c - 'a']++;
+    public int minExtraChar(String s, String[] dictionary) {
+        Set<String> dict = new HashSet<>();
+        for (String word : dictionary) {
+            dict.add(word);
         }
-        int[] windowCount = new int[26];
-        int start = 0;
-        int neededChars = pattern.length();
-        long res = 0;
-        for (int end = 0; end < primary.length(); end++) {
-            char curr = primary.charAt(end);
-            if (targetCount[curr - 'a'] > 0) {
-                if (windowCount[curr - 'a'] < targetCount[curr - 'a']) {
-                    neededChars--;
-                }
-            }
-            windowCount[curr - 'a']++;
-            while (neededChars == 0) {
-                res += primary.length() - end;
-                char startChar = primary.charAt(start);
-                windowCount[startChar - 'a']--;
-                if (targetCount[startChar - 'a'] > 0 && windowCount[startChar - 'a'] < targetCount[startChar] - 'a') {
-                    neededChars++;
-                }
-                start++;
+        HashMap<Integer, Integer> memo = new HashMap<>();
+        return minExtra(s, 0, dict, memo);
+    }
+
+    private int minExtra(String s, int start, Set<String> dict, HashMap<Integer, Integer> memo) {
+        if (start == s.length()) {
+            return 0;
+        }
+        if (memo.containsKey(start)) {
+            return memo.get(start);
+        }
+        int minExtraChars = 1 + minExtra(s, start + 1, dict, memo);
+        for (int end = start + 1; end <= s.length(); end++) {
+            String substring = s.substring(start, end);
+            if (dict.contains(substring)) {
+                minExtraChars = Math.min(minExtraChars, minExtra(s, end, dict, memo));
             }
         }
-        return res;
+        memo.put(start, minExtraChars);
+        return minExtraChars;
     }
 }

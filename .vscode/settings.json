@@ -9,5 +9,6 @@
     "files.exclude": {
         "bin": true,
         ".vscode": true
-    }
+    },
+    "editor.fontSize": 18
 }
